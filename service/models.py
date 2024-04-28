@@ -27,8 +27,8 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-    # def get_absolute_url(self):
-    #     return reverse('products:cat_prod', args=[self.slug, self.id])
+    def get_absolute_url(self):
+        return reverse('service:category_sub', args=[self.slug])
 
 
 
@@ -106,6 +106,10 @@ class TypeService(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('service:detail_service', args=[self.slug])
+
 
 
 class Comment(models.Model):

@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'taggit',
     # 'phone_field',
     # 'melipayamak',
+     # 'django.contrib',
+    'ckeditor',
+    'ckeditor_uploader',
 
 ]
 
@@ -68,10 +71,8 @@ ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [str(BASE_DIR.joinpath('templates'))],
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Add the path to your project's template directory
-
+       'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Add the directory where _base.html is located
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -157,3 +158,13 @@ AUTH_USER_MODEL = 'core.CustomUser'
 
 # crispy forms settings
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+# ckeditor setting
+CKEDITOR_UPLOAD_PATH = 'ck/'
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+
+    },
+}
