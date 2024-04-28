@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # myapp 
     'core',
     'service',
+    'pages',
     
 
      # third party
