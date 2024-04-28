@@ -21,8 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('core/', include("core.urls")),
-    path('service/', include("service.urls")),
+    path('', include("core.urls")),
+    path('', include("service.urls")),
     
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + \
@@ -30,5 +30,5 @@ urlpatterns = [
 
 admin.site.site_header = 'مدیریت وبسایت '
 admin.site.site_title = 'مدیریت وبسایت '
-admin.site.index_title = 'Welcome To Darouoff Administration'
+admin.site.index_title = 'Welcome To  Administration'
 
