@@ -5,7 +5,7 @@ from . import models
 @admin.register(models.TypeService)
 class TypeServiceAdmin(admin.ModelAdmin):
     list_display = ['status','name','slug', 'info','picture',
-                    'category','datetime_created',]
+                    'category','datetime_created','description','icon']
 
     list_filter = ('status',)
     search_fields = ('name',)

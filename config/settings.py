@@ -46,15 +46,16 @@ INSTALLED_APPS = [
     
 
      # third party
+    'ckeditor',
+    'ckeditor_uploader',
+    'taggit',
+    'thumbnail',
+
     # 'crispy_forms',
     # 'jalali_date',
-    'thumbnail',
-    'taggit',
     # 'phone_field',
     # 'melipayamak',
      # 'django.contrib',
-    'ckeditor',
-    'ckeditor_uploader',
 
 ]
 
@@ -162,7 +163,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # ckeditor setting
-CKEDITOR_UPLOAD_PATH = 'ck/'
+CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',

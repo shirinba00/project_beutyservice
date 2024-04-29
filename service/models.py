@@ -9,6 +9,7 @@ from core.models import CustomUser
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from uuid import uuid4
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 
@@ -92,7 +93,9 @@ class TypeService(models.Model):
     )
     name = models.CharField(max_length=255,verbose_name='name')
     slug = models.SlugField(allow_unicode=True, unique=True, null=True, blank=True, verbose_name="slug_service")
-    info = models.TextField(verbose_name='description')
+    info = models.TextField()
+    description = RichTextUploadingField(blank=True, null=True)
+    icon = models.ImageField(upload_to='icon_typeservice/',null=True, blank=True)
     price = models.DecimalField(max_digits=6,decimal_places=2,verbose_name='price',null=True, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True,verbose_name='datetime_created')
     datetime_modified = models.DateTimeField(auto_now=True,verbose_name='datetime_modified')
