@@ -85,9 +85,11 @@
                     <div class="col-auto d-none d-lg-block">
                         <div class="header-links">
                             <ul>
-                                <li><i class="far fa-phone"></i><a href="tel:+256214203215">+256 214 203 215</a></li>
-                                <li><i class="far fa-envelope"></i><a href="mailto:info@rasm.com">info@rasm.com</a></li>
+                                {% for about in aboutus%}
+                                <li><i class="far fa-phone"></i><a href="tel:+256214203215">{{about.phone}}</a></li>
+                                <li><i class="far fa-envelope"></i><a href="mailto:info@rasm.com">in{{about.email}}</a></li>
                                 <li><i class="fa-light fa-clock"></i>Mon - Sat: 8 AM - 15 PM Sunday Off</li>
+                                {%endfor%}
                             </ul>
                         </div>
                     </div>
@@ -245,13 +247,22 @@
         </div>
     </header>
 
+    
+
     <!-- HEADER SITE -->
 
 
     {% block content %}
+
+    
     
     {% endblock %}
+
+
+
 </body>
+
+
 
 <footer class="footer-wrapper footer-layout1">
     <div class="widget-area">
@@ -290,22 +301,23 @@
                         </div>
                     </div>
                 </div>
+                {%for  about in aboutus%}
                 <div class="col-md-6 col-xl-auto">
                     <div class="widget footer-widget">
                         <h3 class="widget_title">Contact Details</h3>
                         <div class="th-widget-about">
                             <h4 class="footer-info-title">Phone Number</h4>
                             <p class="footer-info"><i class="fa-sharp fa-solid fa-phone"></i><a class="text-inherit"
-                                    href="tel:+256214203215">+256 214 203 215</a></p>
+                                    href="tel:+256214203215">{{about.phone}}</a></p>
                             <h4 class="footer-info-title">Email Address</h4>
                             <p class="footer-info"><i class="fas fa-envelope"></i><a class="text-inherit"
-                                    href="mailto:info@rasm.com">info@rasm.com</a></p>
+                                    href="mailto:info@rasm.com">{{about.email}}</a></p>
                             <h4 class="footer-info-title">Office Location</h4>
-                            <p class="footer-info"><i class="fas fa-map-marker-alt"></i>25 Street, 145 City Road New
-                                Town DD14, USA</p>
+                            <p class="footer-info"><i class="fas fa-map-marker-alt"></i>{{about.address}}</p>
                         </div>
                     </div>
                 </div>
+                {%endfor%}
                 <div class="col-md-6 col-xl-auto">
                     <div class="widget footer-widget">
                         <h4 class="widget_title">Newsletter</h4>

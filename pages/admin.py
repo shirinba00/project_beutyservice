@@ -8,4 +8,8 @@ class AboutUSAdmin(admin.ModelAdmin):
                     'cover','file','email','phone',
                     'experience_years','address','customers_number',]
 
- 
+
+@admin.register(models.ImageAboutUs)
+class ImageAboutUsAdmin(admin.ModelAdmin):
+    list_display = ['name','image','aboutus',]
+                  

@@ -1,6 +1,6 @@
 {% extends '_base.html' %}
 {% load static %}
-{% block page_title %}All service{% endblock %}
+{% block page_title %}AboutUs{% endblock %}
 {% block content %}
 
 
@@ -20,14 +20,16 @@
     <div class="about-sec overflow-hidden space-top" id="about-sec">
         <div class="container">
             <div class="row">
+                {% for about in aboutus%}
                 <div class="col-xl-6 wow fadeInLeft">
                     <div class="img-box1">
-                        <div class="img1"><img class="tilt-active" src="assets/img/normal/about_1.jpg" alt="About">
+                        <div class="img1"><img class="tilt-active" src="{{about.cover.url}}" alt="About">
                         </div>
-                        <div class="img2"><img class="tilt-active" src="assets/img/normal/about_2.jpg" alt="About">
+                        <div class="img2"><img class="tilt-active" src="{{about.file.url}}" alt="About">
                         </div>
-                        <div class="img3"><img src="assets/img/shape/flower_1_3.png" alt="About"></div>
+                        <div class="img3"><img src="{%static 'assets/img/shape/flower_1_3.png'%}" alt="About"></div>
                     </div>
+                    {%endfor%}
                 </div>
                 <div class="col-xl-6">
                     <div class="ps-xl-4 wow fadeInRight">
@@ -56,14 +58,15 @@
             </div>
         </div>
     </div>
+    {% for about in aboutus%}
     <div class="overflow-hidden space-top" data-pos-for=".choose-area2" data-sec-pos="bottom-half">
         <div class="container">
             <div class="counter-sec style4 space-top">
                 <div class="th-counterup wow fadeInLeft">
                     <div class="inner">
-                        <div class="icon"><img src="assets/img/icon/counter_1_1.svg" alt=""></div>
+                        <div class="icon"><img src="{%static 'assets/img/icon/counter_1_1.svg'%}" alt=""></div>
                         <div class="content">
-                            <h3 class="counter"><span class="odometer" data-count="26">00</span> <span
+                            <h3 class="counter"><span class="odometer" data-count="26">{{about.experience_years}}</span> <span
                                     class="counter-number">+</span></h3>
                             <p class="counter-card_text">Years of Experience</p>
                         </div>
@@ -71,9 +74,9 @@
                 </div>
                 <div class="th-counterup wow fadeInLeft">
                     <div class="inner">
-                        <div class="icon"><img src="assets/img/icon/counter_1_2.svg" alt=""></div>
+                        <div class="icon"><img src="{%static 'assets/img/icon/counter_1_2.svg'%}" alt=""></div>
                         <div class="content">
-                            <h3 class="counter"><span class="odometer" data-count="100">00</span> <span
+                            <h3 class="counter"><span class="odometer" data-count="100">100</span> <span
                                     class="counter-number">%</span></h3>
                             <p class="counter-card_text">Natural Products</p>
                         </div>
@@ -81,9 +84,9 @@
                 </div>
                 <div class="th-counterup wow fadeInLeft">
                     <div class="inner">
-                        <div class="icon"><img src="assets/img/icon/counter_1_3.svg" alt=""></div>
+                        <div class="icon"><img src="{%static 'assets/img/icon/counter_1_3.svg'%}" alt=""></div>
                         <div class="content">
-                            <h3 class="counter"><span class="odometer" data-count="56">00</span> <span
+                            <h3 class="counter"><span class="odometer" data-count="56">{{about.customers_number}}</span> <span
                                     class="counter-number">k+</span></h3>
                             <p class="counter-card_text">Satisfied Clients</p>
                         </div>
@@ -91,9 +94,9 @@
                 </div>
                 <div class="th-counterup wow fadeInLeft">
                     <div class="inner">
-                        <div class="icon"><img src="assets/img/icon/counter_1_4.svg" alt=""></div>
+                        <div class="icon"><img src="{%static 'assets/img/icon/counter_1_4.svg'%}" alt=""></div>
                         <div class="content">
-                            <h3 class="counter"><span class="odometer" data-count="36">00</span> <span
+                            <h3 class="counter"><span class="odometer" data-count="36">36</span> <span
                                     class="counter-number">+</span></h3>
                             <p class="counter-card_text">Specialists Team</p>
                         </div>
@@ -102,68 +105,47 @@
             </div>
         </div>
     </div>
-    <div class="choose-area2 bg-smoke overflow-hidden space">
-        <div class="container">
-            <div class="row gy-4">
-                <div class="col-lg-7">
-                    <div class="pe-xl-5 me-xl-3">
-                        <div class="title-area mt-60 mb-25 wow fadeInLeft"><span class="sub-title">Why Choose Us<img
-                                    src="assets/img/theme-img/title_right.svg" alt=""></span>
-                            <h2 class="sec-title">We Have 25 Years Of Experience With Nail Style.</h2>
-                            <p class="mt-n2 mb-35">We prioritize the cleanliness and comfort of our clients, ensuring a
-                                hygienic and relaxing environment throughout your visit. Our salon adheres to strict
-                                sanitization protocols, and all our tools.</p>
-                        </div>
-                        <div class="choose-about-wrap">
-                            <div class="choose-about wow fadeInUp">
-                                <div class="choose-about_icon"><img src="assets/img/icon/choose_1.svg" alt="image">
-                                </div>
-                                <div class="media-body">
-                                    <h3 class="box-title">Brand Nail Art Equipment</h3>
-                                    <p class="choose-about_text">From classic manicures and pedicures to intricate nail
-                                        art and personalized nail extensions</p>
-                                </div>
+    {%endfor%}
+  
+    {% for about in aboutus %}
+        <div class="choose-area2 bg-smoke overflow-hidden space">
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="col-lg-7">
+                        <div class="pe-xl-5 me-xl-3">
+                            <div class="title-area mt-60 mb-25 wow fadeInLeft"><span class="sub-title">Why Choose Us<img
+                                        src="{%static 'assets/img/theme-img/title_right.svg'%}" alt=""></span>
+                                <h2 class="sec-title">{{about.text_short |safe}}</h2>
+                                <p class="mt-n2 mb-35">{{about.information |safe }}
+                                </p>
                             </div>
-                            <div class="choose-about wow fadeInUp">
-                                <div class="choose-about_icon"><img src="assets/img/icon/choose_2.svg" alt="image">
-                                </div>
-                                <div class="media-body">
-                                    <h3 class="box-title">Best Place</h3>
-                                    <p class="choose-about_text">That's why we only use premium quality nail polishes,
-                                        gel, and other nail products from trusted brands.</p>
-                                </div>
-                            </div>
-                            <div class="choose-about wow fadeInUp">
-                                <div class="choose-about_icon"><img src="assets/img/icon/choose_3.svg" alt="image">
-                                </div>
-                                <div class="media-body">
-                                    <h3 class="box-title">Special Support</h3>
-                                    <p class="choose-about_text">That's why we only use premium quality nail polishes,
-                                        gel, and other nail products from trusted brands.</p>
-                                </div>
-                            </div>
+                      
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="choose-image">
-                        <div class="img1 wow fadeInRight"><img src="assets/img/normal/choose_1.png" alt="Choose"></div>
-                        <div class="img2 movingX"><img src="assets/img/shape/flower_1_3.png" alt="image"></div>
+                    <div class="col-lg-5">
+                        <div class="choose-image">
+                            {%for img in  about.images.all %}
+                            <div class="img1 wow fadeInRight"><img src="{{img.image.url}}" alt="Choose"></div>
+                            {%endfor%}
+                            <div class="img2 movingX"><img src="{%static 'assets/img/shape/flower_1_3.png'%}" alt="image"></div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="shape-mockup" data-top="0%" data-left="0%"><img src="{%static 'assets/img/shape/flower_1_1.png'%}" alt="shape">
+            </div>
+            <div class="shape-mockup d-none d-lg-block" data-bottom="0%" data-right="0%"><img
+                    src="{%static 'assets/img/shape/flower_1_2.png'%}" alt="shape"></div>
         </div>
-        <div class="shape-mockup" data-top="0%" data-left="0%"><img src="assets/img/shape/flower_1_1.png" alt="shape">
-        </div>
-        <div class="shape-mockup d-none d-lg-block" data-bottom="0%" data-right="0%"><img
-                src="assets/img/shape/flower_1_2.png" alt="shape"></div>
-    </div>
-    <div class="appointment-sec bg-top-center space" id="contact-sec" data-bg-src="assets/img/bg/appointment_bg_3.jpg">
+
+    {%endfor%}
+
+    <div class="appointment-sec bg-top-center space" id="contact-sec" data-bg-src="{%static 'assets/img/bg/appointment_bg_3.jpg'%}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 wow fadeInLeft">
                     <div class="title-area mb-25 text-center text-lg-start"><span class="sub-title">Make An
-                            Appointment<img src="assets/img/theme-img/title_right.svg" alt=""></span>
+                            Appointment<img src="{%static 'assets/img/theme-img/title_right.svg'%}" alt=""></span>
                         <h2 class="sec-title text-white">Experience the Magic of Our Nail Styling Services</h2>
                     </div>
                     <div class="appointment-work text-center text-lg-start">
@@ -212,11 +194,13 @@
             </div>
         </div>
     </div>
-    <div class="sec-shape"><span class="sec-shape_img"><img src="assets/img/icon/girl.svg" alt=""></span></div>
+
+    
+    <div class="sec-shape"><span class="sec-shape_img"><img src="{%static 'assets/img/icon/girl.svg'%}" alt=""></span></div>
     <section class="bg-top-center overflow-hidden space">
         <div class="container">
             <div class="title-area text-center"><span class="sub-title style2">Expert Team</span> <img
-                    src="assets/img/theme-img/title_shape_1.svg" alt="">
+                    src="{%static 'assets/img/theme-img/title_shape_1.svg'%}" alt="">
                 <h2 class="sec-title">Our Experience Specialists</h2>
             </div>
             <div class="row slider-shadow th-carousel teamSlide1" id="teamSlide1" data-slide-show="3"
@@ -241,71 +225,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-4 col-xxl-3">
-                    <div class="th-team team-card wow fadeInDown">
-                        <div class="team-img"><img src="assets/img/team/team_1_2.jpg" alt="Team"></div>
-                        <div class="team-card_content">
-                            <div class="team-content">
-                                <h3 class="box-title"><a href="team-details.html">Arlene McCoy</a></h3><span
-                                    class="team-desig">Specialist</span>
-                            </div>
-                            <div class="team-social">
-                                <div class="icon-btn"><i class="fa-light fa-plus"></i></div>
-                                <div class="th-social"><a target="_blank" href="https://twitter.com/"><i
-                                            class="fab fa-twitter"></i></a> <a target="_blank"
-                                        href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a> <a
-                                        target="_blank" href="https://facebook.com/"><i
-                                            class="fab fa-facebook-f"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4 col-xxl-3">
-                    <div class="th-team team-card wow fadeInUp">
-                        <div class="team-img"><img src="assets/img/team/team_1_3.jpg" alt="Team"></div>
-                        <div class="team-card_content">
-                            <div class="team-content">
-                                <h3 class="box-title"><a href="team-details.html">Robert Fox</a></h3><span
-                                    class="team-desig">Specialist</span>
-                            </div>
-                            <div class="team-social">
-                                <div class="icon-btn"><i class="fa-light fa-plus"></i></div>
-                                <div class="th-social"><a target="_blank" href="https://twitter.com/"><i
-                                            class="fab fa-twitter"></i></a> <a target="_blank"
-                                        href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a> <a
-                                        target="_blank" href="https://facebook.com/"><i
-                                            class="fab fa-facebook-f"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4 col-xxl-3">
-                    <div class="th-team team-card wow fadeInDown">
-                        <div class="team-img"><img src="assets/img/team/team_1_4.jpg" alt="Team"></div>
-                        <div class="team-card_content">
-                            <div class="team-content">
-                                <h3 class="box-title"><a href="team-details.html">Jade Smith</a></h3><span
-                                    class="team-desig">Specialist</span>
-                            </div>
-                            <div class="team-social">
-                                <div class="icon-btn"><i class="fa-light fa-plus"></i></div>
-                                <div class="th-social"><a target="_blank" href="https://twitter.com/"><i
-                                            class="fab fa-twitter"></i></a> <a target="_blank"
-                                        href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a> <a
-                                        target="_blank" href="https://facebook.com/"><i
-                                            class="fab fa-facebook-f"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </section>
+
+
+
+    
     <div class="overflow-hidden bg-smoke space">
         <div class="container">
             <div class="row">
                 <div class="title-area text-center mb-25"><span class="sub-title style2">Testimonials</span> <img
-                        src="assets/img/theme-img/title_shape_1.svg" alt="">
+                        src="{%static 'assets/img/theme-img/title_shape_1.svg'%}" alt="">
                     <h2 class="sec-title">Our Customer Feedback</h2>
                 </div>
             </div>
@@ -384,5 +316,6 @@
     </div>
    
 </body>
+{%endblock%}
 
 </html>
