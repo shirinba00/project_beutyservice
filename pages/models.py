@@ -1,3 +1,4 @@
+from audioop import reverse
 from django.db import models
 
 from django.utils import timezone
@@ -21,6 +22,20 @@ class AboutUS(models.Model):
 
     def __str__(self):
         return self.title
+
+
+
+class ImageAboutUs(models.Model):
+    name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='gallery_aboutus/', blank=True)
+    aboutus = models.ForeignKey(AboutUS, on_delete=models.CASCADE, related_name='images', blank=True)
+
+    def __str__(self):
+        return self.name
+
+    # def get_absolute_url(self):
+    #     return reverse('products:single_product', args=[self.product.id])
+
 
 
 # class ContactUs(models.Model):
