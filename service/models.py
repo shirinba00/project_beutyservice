@@ -1,7 +1,3 @@
-from datetime import timedelta, timezone
-import random
-import string
-import unicodedata
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
@@ -10,6 +6,7 @@ from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from uuid import uuid4
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.utils import timezone
 
 
 
@@ -114,21 +111,17 @@ class TypeService(models.Model):
         return reverse('service:detail_service', args=[self.slug])
 
 
+class ReserveService(models.Model):
+    service = models.ForeignKey(TypeService, on_delete=models.CASCADE, related_name='reserve_service', blank=True)
+    firstname = models.CharField(max_length=50, blank=True, null=True)
+    lastname = models.CharField(max_length=50, blank=True, null=True)
+    email = models.EmailField(unique=True)
+    phone = models.BigIntegerField(blank=True, null=True, unique=True)
+    date = models.DateField(default=timezone.now)
+    time = models.TimeField(default=timezone.now)
 
-
-
-# class ReserveService(models.Model):
-#     service = models.ForeignKey(TypeService, on_delete=models.CASCADE, related_name='reserve_service', blank=True)
-#     firstname = models.CharField(max_length=50,blank=True,null=True)
-#     lastname = models.CharField(max_length=50,blank=True,null=True)
-#     email = models.EmailField(unique=True)
-#     phone = models.BigIntegerField(blank=True, null=True, unique=True, )
-#     text =  models.TextField(max_length=700,blank=True,null=True)
-#     date= models.DateField(default=datezone.now,)
-#     time = models .TimeField(default=timezone.now,)
-
-#     def __str__(self):
-#         return self.lastname
+    def __str__(self):
+        return self.lastname
 
 
 
