@@ -115,6 +115,24 @@ class TypeService(models.Model):
 
 
 
+
+
+# class ReserveService(models.Model):
+#     service = models.ForeignKey(TypeService, on_delete=models.CASCADE, related_name='reserve_service', blank=True)
+#     firstname = models.CharField(max_length=50,blank=True,null=True)
+#     lastname = models.CharField(max_length=50,blank=True,null=True)
+#     email = models.EmailField(unique=True)
+#     phone = models.BigIntegerField(blank=True, null=True, unique=True, )
+#     text =  models.TextField(max_length=700,blank=True,null=True)
+#     date= models.DateField(default=datezone.now,)
+#     time = models .TimeField(default=timezone.now,)
+
+#     def __str__(self):
+#         return self.lastname
+
+
+
+
 class Comment(models.Model):
     COMMENT_STATUS_WAITING = 'w'
     COMMENT_STATUS_APPROVED = 'a'

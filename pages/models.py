@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
+from service.models import TypeService
 
 
 
@@ -31,17 +32,24 @@ class ImageAboutUs(models.Model):
     def __str__(self):
         return self.name
 
-    # def get_absolute_url(self):
-    #     return reverse('products:single_product', args=[self.product.id])
 
 
 
-# class ContactUs(models.Model):
-#     title = models.CharField(max_length=100, blank=True, null=True)
-#     text = RichTextUploadingField(blank=True, null=True)
-#     datetime_created = models.DateTimeField(default=timezone.now)
+class ContactUs(models.Model):
+    fullname = models.CharField(max_length=50,blank=True,null=True)
+    email = models.EmailField(unique=True)
+    phone = models.BigIntegerField(blank=True, null=True, unique=True, )
+    text =  models.TextField(max_length=700,blank=True,null=True)
+    datetime_created = models.DateTimeField(default=timezone.now,)
 
-#     def __str__(self):
-#         return self.title
+    def __str__(self):
+        return self.fullname
+
+  
+
+    
+
+
+    
 
  

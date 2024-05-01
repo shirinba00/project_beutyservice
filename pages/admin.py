@@ -12,4 +12,14 @@ class AboutUSAdmin(admin.ModelAdmin):
 @admin.register(models.ImageAboutUs)
 class ImageAboutUsAdmin(admin.ModelAdmin):
     list_display = ['name','image','aboutus',]
+
+
+
+
+
+@admin.register(models.ContactUs)
+class ContactUSAdmin(admin.ModelAdmin):
+    list_display = ['fullname','email','text',
+                    'phone',
+                  ]
                   
