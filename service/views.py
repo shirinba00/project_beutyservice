@@ -1,17 +1,33 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
-
-from .models import Category, TypeService
+from django.contrib import messages
+from .models import Category, ReserveService, TypeService
 from .forms import *
 from django.db.models import Q
 
 
 # display all typeservice
+
 class AllTypeServiceView(View):
+   
     def get(self, request):
         typeservice = TypeService.objects.all()
-        context = {'typeservice': typeservice}
+        reserveservice_form = ReserveServiceForm()
+        context = {'typeservice': typeservice, 'form': reserveservice_form}
         return render(request, 'service/service.html', context)
+
+    def post(self, request):
+        reserveservice_form = ReserveServiceForm(request.POST)
+        typeservice = TypeService.objects.all()
+        if reserveservice_form.is_valid():
+            reserveservice_form.save()
+            messages.success(request, 'Your reservation has been successfully submitted.')
+            return redirect('service:typeservice')
+        else:
+            messages.error(request, 'Failed to submit reservation. Please check the form.')
+            typeservice = TypeService.objects.all()
+            context = {'typeservice': typeservice, 'form': reserveservice_form}
+            return render(request, 'service/service.html', context)
           
 
 # display detail typeservice
@@ -36,24 +52,11 @@ class DetailTypeServiceView(View):
 # Display List Category
 class CategoryAndSubView(View):
     def get(self, request, slug=None):
+        typeservice = TypeService.objects.all()
         category = Category.objects.filter(sub_cat=False)
         if slug:
             category_slug = get_object_or_404(Category, slug=slug)
-        context = {'category': category,'category_slug':category_slug}
+        context = {'category': category,'category_slug':category_slug,'typeservice':typeservice,}
         return render(request, 'service/service.html', context)
     
-
-
-
-# def category_and_sub(request, slug=None): 
-#     category = Category.objects.all()
-#     if slug: 
-#         category = get_object_or_404(Category, slug=slug) 
-#     context = {'category': category} 
-#     return render(request, 'service/service.html', context)
-
-
-
-  
-                                                  
 

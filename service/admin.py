@@ -16,9 +16,16 @@ class TypeServiceAdmin(admin.ModelAdmin):
 @admin.register(models.SampleGalleryPersonService)
 class SampleGalleryPersonServiceAdmin(admin.ModelAdmin):
      list_display = ['name','description','image',]
-    # list_filter = ['name']
-    # search_fields = ('name',)
 
+
+@admin.register(models.ReserveService)
+class ReserveServiceAdmin(admin.ModelAdmin):
+    list_display = ['firstname','lastname','email','phone','date','time',]
+                 
+
+    # list_filter = ('service',)
+    search_fields = ('date','time','lastname',)
+    
 
 
 

@@ -112,7 +112,7 @@ class TypeService(models.Model):
 
 
 class ReserveService(models.Model):
-    service = models.ForeignKey(TypeService, on_delete=models.CASCADE, related_name='reserve_service', blank=True)
+    service = models.ForeignKey(TypeService, on_delete=models.PROTECT, related_name='reserve_service')
     firstname = models.CharField(max_length=50, blank=True, null=True)
     lastname = models.CharField(max_length=50, blank=True, null=True)
     email = models.EmailField(unique=True)
