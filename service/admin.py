@@ -13,6 +13,10 @@ class TypeServiceAdmin(admin.ModelAdmin):
         'slug': ('name',)
     }
 
+
+
+
+
 @admin.register(models.SampleGalleryPersonService)
 class SampleGalleryPersonServiceAdmin(admin.ModelAdmin):
      list_display = ['name','description','image',]
@@ -21,9 +25,6 @@ class SampleGalleryPersonServiceAdmin(admin.ModelAdmin):
 @admin.register(models.ReserveService)
 class ReserveServiceAdmin(admin.ModelAdmin):
     list_display = ['firstname','lastname','email','phone','date','time',]
-                 
-
-    # list_filter = ('service',)
     search_fields = ('date','time','lastname',)
     
 
@@ -37,18 +38,25 @@ class SampleGalleryInline(admin.TabularInline):
 
 
 @admin.register(models.PersonService)
-class PersonServiceAdmin(admin.ModelAdmin):
-    list_display =  ['first_name','last_name','email']
-    ordering = ('user__last_name','user__first_name',)
-    search_fields = ('user__email__istartswith','user__last_name__istartswith','user__first_name__istartswith',)
-    def first_name(self,personservice):
-        return personservice.user.first_name
+class TeamServiceAdmin(admin.ModelAdmin):
+    list_display = ['user','typeservice','phone', 'information_short','image',
+                    'description','instagram','linkedin','facebook','pinterest',]
+
+
+# @admin.register(models.PersonService)
+# class PersonServiceAdmin(admin.ModelAdmin):
+#     list_display =  ['first_name','last_name','email','typeservice','phone', 'information_short','image',
+#                     'description','instagram','linkedin','facebook','pinterest',]
+#     ordering = ('user__last_name','user__first_name',)
+#     search_fields = ('user__email__istartswith','user__last_name__istartswith','user__first_name__istartswith',)
+#     def first_name(self,personservice):
+#         return personservice.user.first_name
     
-    def last_name(self,personservice):
-        return personservice.user.last_name
+#     def last_name(self,personservice):
+#         return personservice.user.last_name
     
-    def email(self,personservice):
-        return personservice.user.email
+#     def email(self,personservice):
+#         return personservice.user.email
 
 
 

@@ -159,38 +159,58 @@
                         </ul>
                     </div>
                 </div>
+                 <!-- Appointment in advance -->
                 <div class="col-lg-6">
                     <div class="appointment-quote-form wow fadeInUp">
-                        <div class="row">
-                            <div class="col-md-6 form-group"><i class="fa-sharp fa-light fa-user"></i> <input
-                                    type="text" placeholder="First Name" class="form-control"></div>
-                            <div class="col-md-6 form-group"><i class="fa-sharp fa-light fa-user"></i> <input
-                                    type="text" placeholder="Last Name" class="form-control"></div>
-                            <div class="col-md-6 form-group"><i class="fa-light fa-envelope-open"></i> <input
-                                    type="text" placeholder="Email Address" class="form-control"></div>
-                            <div class="col-md-6 form-group"><i class="fa-light fa-phone"></i> <input type="text"
-                                    placeholder="Phone Number" class="form-control"></div>
-                            <div class="form-group col-12"><i class="fa-regular fa-tag"></i> <select name="subject"
-                                    id="subject" class="form-select nice-select">
-                                    <option value="" disabled="disabled" selected="selected" hidden>Select Subject
-                                    </option>
-                                    <option value="Engine Diagnostics">Spa & Massage</option>
-                                    <option value="Facial & Massage">Facial & Massage</option>
-                                    <option value="Engine Diagnostics">Head Massage</option>
-                                    <option value="Sports Massage">Sports Massage</option>
-                                    <option value="Stone Massage">Stone Massage</option>
-                                </select></div>
-                            <div class="form-group col-12"><input type="text" class="date-pick form-control" name="date"
-                                    id="date-pick" placeholder="Select Date"> <i class="fa-light fa-calendar-days"></i>
+                        
+                    <form method="post" action="{% url 'service:typeservice' %}">
+                        {% csrf_token %}
+                                                  
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <i class="fa-sharp fa-light fa-user"></i>
+                                        <input type="text" id="firstname" name="firstname" placeholder="First Name" class="form-control">
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <i class="fa-sharp fa-light fa-user"></i>
+                                        <input type="text" id="lastname" name="lastname" placeholder="Last Name" class="form-control">
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <i class="fa-light fa-envelope-open"></i>
+                                        <input type="email" id="email" name="email" placeholder="Email Address" class="form-control">
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <i class="fa-light fa-phone"></i>
+                                        <input type="text" id= "phone" name="phone" placeholder="Phone Number" class="form-control">
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <i class="fa-regular fa-tag"></i>
+                                        <select name="service"  id= "service" type ="service" class="form-select nice-select">
+                                            <option value="" disabled="disabled" selected="selected" hidden>Select TypeService</option>
+                                            {% for service1 in typeservice %}
+                                                <option value="{{ service1.id }}">{{ service1.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <input type="date"  id="date" name="date" class="date-pick form-control" placeholder="Select Date">
+                                        <!-- <i class="fa-light fa-calendar-days"></i> -->
+                                    </div>
+                                    
+                                    <div class="form-group col-12">
+                                        <input type="time" id="time" name="time" class="time-pick form-control" placeholder="Select Time">
+                                        <!-- <i class="fa-light fa-clock"></i> -->
+                                    </div>
+                                    <div class="btn-group justify-content-center justify-content-xl-start">
+                                        <button type="submit" class="th-btn style3 fw-btn">Make An Appointment 
+                                            <i class="fa-solid fa-arrow-right ms-2"></i></button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group col-12"><input type="text" class="time-pick form-control" name="time"
-                                    id="time-pick" placeholder="Select Time"> <i class="fa-light fa-clock"></i></div>
-                            <div class="btn-group justify-content-center justify-content-xl-start"><button
-                                    class="th-btn style3 fw-btn">Make An Appointment <i
-                                        class="fa-solid fa-arrow-right ms-2"></i></button></div>
-                        </div>
+                    </form>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>
