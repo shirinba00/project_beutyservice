@@ -30,21 +30,7 @@ class Category(models.Model):
 
 
 
-class PersonService(models.Model):
-    user = models.OneToOneField(CustomUser,on_delete=models.PROTECT)
-    image = models.ImageField(upload_to='personservice_picture/',)
-    phone= models.CharField(max_length=25, blank=True ,null=True,)
-    information_short = models.TextField(blank=True ,null=True,)
-    description = RichTextUploadingField(blank=True, null=True)
-    instagram = models.CharField(max_length=50,blank=True ,null=True,)
-    linkedin = models.CharField(max_length=50,blank=True ,null=True,)
-    facebook = models.CharField(max_length=50,blank=True ,null=True,)
-    pinterest = models.CharField(max_length=50,blank=True ,null=True,)
-    typeservice = models.ForeignKey('TypeService',on_delete=models.PROTECT,blank=True,verbose_name='typeservice',
-                                         related_name='typeservice_personservice')
-          
-    def __str__(self):
-        return self.user.last_name
+
     
 
 
@@ -125,7 +111,21 @@ class ReserveService(models.Model):
     def __str__(self):
         return self.lastname
 
-
+class PersonService(models.Model):
+    user = models.OneToOneField(CustomUser,on_delete=models.PROTECT)
+    image = models.ImageField(upload_to='personservice_picture/',)
+    phone= models.CharField(max_length=25, blank=True ,null=True,)
+    information_short = models.TextField(blank=True ,null=True,)
+    description = RichTextUploadingField(blank=True, null=True)
+    instagram = models.CharField(max_length=50,blank=True ,null=True,)
+    linkedin = models.CharField(max_length=50,blank=True ,null=True,)
+    facebook = models.CharField(max_length=50,blank=True ,null=True,)
+    pinterest = models.CharField(max_length=50,blank=True ,null=True,)
+    typeservice = models.ForeignKey(TypeService,on_delete=models.PROTECT,blank=True,
+                                         related_name='typeservice_personservice')
+          
+    def __str__(self):
+        return self.phone
 
 
 class Comment(models.Model):

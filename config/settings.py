@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'core',
     'service',
     'pages',
+    'blog',
     
 
      # third party

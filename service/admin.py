@@ -37,26 +37,26 @@ class SampleGalleryInline(admin.TabularInline):
     min_num = 1
 
 
-@admin.register(models.PersonService)
-class TeamServiceAdmin(admin.ModelAdmin):
-    list_display = ['user','typeservice','phone', 'information_short','image',
-                    'description','instagram','linkedin','facebook','pinterest',]
-
-
 # @admin.register(models.PersonService)
 # class PersonServiceAdmin(admin.ModelAdmin):
-#     list_display =  ['first_name','last_name','email','typeservice','phone', 'information_short','image',
+#     list_display = ['user','typeservice','phone', 'information_short','image',
 #                     'description','instagram','linkedin','facebook','pinterest',]
-#     ordering = ('user__last_name','user__first_name',)
-#     search_fields = ('user__email__istartswith','user__last_name__istartswith','user__first_name__istartswith',)
-#     def first_name(self,personservice):
-#         return personservice.user.first_name
+
+
+@admin.register(models.PersonService)
+class PersonServiceAdmin(admin.ModelAdmin):
+    list_display =  ['first_name','last_name','email','typeservice','phone', 'information_short','image',
+                    'description','instagram','linkedin','facebook','pinterest',]
+    ordering = ('user__last_name','user__first_name',)
+    search_fields = ('user__email__istartswith','user__last_name__istartswith','user__first_name__istartswith',)
+    def first_name(self,personservice):
+        return personservice.user.first_name
     
-#     def last_name(self,personservice):
-#         return personservice.user.last_name
+    def last_name(self,personservice):
+        return personservice.user.last_name
     
-#     def email(self,personservice):
-#         return personservice.user.email
+    def email(self,personservice):
+        return personservice.user.email
 
 
 

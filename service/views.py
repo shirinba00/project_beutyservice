@@ -1,22 +1,34 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.contrib import messages
+
+from core.models import CustomUser
 from .models import Category, ReserveService, TypeService,PersonService
 from .forms import *
 from django.db.models import Q
 
 from django.views.generic import ListView
 
+class PersonServiceView(View):
+    def get(self, request):
+        personservice = PersonService.objects.all()
+        typeservice = TypeService.objects.all()
+        context = {'personservice': personservice,'typeservice': typeservice,}
+        return render(request, 'service/team.html', context)
 
+
+# def display_all_personservice(request):
+#     personservices = PersonService.objects.all()
+#     context = {'persons': personservices}
+#     return render(request, 'service/team.html', context)
 
 # display all typeservice
-
 class AllTypeServiceView(View):
    
     def get(self, request):
-        typeservice = TypeService.objects.all()
+        person_service = TypeService.objects.all()
         reserveservice_form = ReserveServiceForm()
-        context = {'typeservice': typeservice, 'form': reserveservice_form}
+        context = {'person_service': person_service, 'form': reserveservice_form}
         return render(request, 'service/service.html', context)
 
     def post(self, request):
@@ -79,8 +91,3 @@ class CategoryAndSubView(View):
         return render(request, 'service/service.html', context)
     
 
-class PessonServiceView(View):
-    def get(self, request):
-        personservice = PersonService.objects.all()
-        context = {'personservice': personservice,}
-        return render(request, 'service/team.html', context)
