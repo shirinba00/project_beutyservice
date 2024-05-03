@@ -8,7 +8,7 @@ from .models import  Post,Category
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     search_fields = ('title',)
-    list_display = ['title', 'title_english', 'status', 'datetime_modified',]
+    list_display = ['title', 'title_english', 'status', 'datetime_modified','datetime_created',]
     ordering = ('status',)
     prepopulated_fields = {
         'slug': ('title_english',)

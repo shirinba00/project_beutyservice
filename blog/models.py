@@ -30,12 +30,14 @@ class Post(models.Model):
         ('drf', 'draft'),
 
     )
+    author = models.ForeignKey(CustomUser, on_delete=models.PROTECT)
     category = models.ManyToManyField(Category, blank=True,)
     title = models.CharField(max_length=200,)
     title_english = models.CharField(max_length=200,)
     slug = models.SlugField(allow_unicode=True, unique=True, null=True, blank=True,)
     text = RichTextUploadingField(blank=True, null=True,)
-    datetime_modified = models.DateTimeField(auto_now=True,)
+    datetime_created = models.DateField(default=timezone.now,)
+    datetime_modified = models.DateField(auto_now=True,)
     status = models.CharField(default='pub', choices=STATUS_CHOICES, max_length=3,)
     cover = models.ImageField(upload_to='covers/',)
     file = models.FileField(upload_to='files_post/', blank=True, null=True,)

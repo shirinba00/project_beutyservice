@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'taggit',
     'thumbnail',
+    'django_filters',
 
     # 'crispy_forms',
     # 'jalali_date',
