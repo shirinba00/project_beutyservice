@@ -128,6 +128,12 @@ class PersonService(models.Model):
         return self.phone
 
 
+
+
+
+
+
+
 class Comment(models.Model):
     COMMENT_STATUS_WAITING = 'w'
     COMMENT_STATUS_APPROVED = 'a'
