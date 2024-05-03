@@ -30,8 +30,8 @@
                             <div class="blog-content">
                                 <div class="blog-meta"><a href="blog.html"><i class="fas fa-user"></i>{{ posts.author.first_name }}&nbsp;{{ posts.author.last_name }}</a> <a
                                         href="blog.html"><i class="fa-solid fa-calendar-days"></i>{{posts.datetime_created}}</a> <a
-                                                href="blog-details.html"><i class="fa-solid fa-tags"></i>{{ posts.tags.all|join:"," }}</a></div>
-                                        <h2 class="blog-title"><a href="blog-details.html">{{posts.title}}
+                                                href="{{posts.get_absolute_url}}"><i class="fa-solid fa-tags"></i>{{ posts.tags.all|join:"," }}</a></div>
+                                        <h2 class="blog-title"><a href="{{posts.get_absolute_url}}">{{posts.title}}
                                                 </a></h2>
                                         <p class="blog-text">{{posts.text |safe}}
                                             </p>

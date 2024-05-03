@@ -52,6 +52,34 @@ def category_and_sub(request, slug=None,id=None):
 
 
 
+def post_detail(request, slug):
+    global data3
+    post = get_object_or_404(Post, slug=slug)
+    post.save()
+    category = Category.objects.filter(sub_cat=False)
+    create = Post.objects.all().order_by('-datetime_created')[:10]
+    # comment = Comment.objects.filter(post__slug=slug).order_by('-datetime_create')
+    # comment_form = CommentForm()
+    similar = post.tags.similar_objects()[:6]
+    if slug:
+        data3 = get_object_or_404(Post, slug=slug,)
+
+    return render(request, 'blog/blog_detail.html', {'post': post,
+                                                    # 'comment': comment,
+                                                    # 'comment_form': comment_form,
+                                                    'category': category,
+                                                    'similar': similar,
+                                                    'create': create,
+                                                    'data3': data3,
+                                                    })
+
+
+
+
+
+
+
+
 
 
 # # display posts in category and subcategory
@@ -68,30 +96,4 @@ def category_and_sub(request, slug=None,id=None):
 #                                                   'create': create,
 #                                                   'product': product,
 #                                                   })
-
-
-# def post_detail(request, slug):
-#     global data3
-#     post = get_object_or_404(Post, slug=slug)
-#     post.num_view += 1
-#     post.save()
-#     category = Category.objects.filter(sub_cat=False)
-#     create = Post.objects.all().order_by('-datetime_created')[:10]
-#     comment = Comment.objects.filter(post__slug=slug).order_by('-datetime_create')
-#     comment_form = CommentForm()
-#     similar = post.tags.similar_objects()[:6]
-#     if slug:
-#         data3 = get_object_or_404(Post, slug=slug,)
-
-#     return render(request, 'mag/post_detail.html', {'post': post,
-#                                                     'comment': comment,
-#                                                     'comment_form': comment_form,
-#                                                     'category': category,
-#                                                     'similar': similar,
-#                                                     'create': create,
-#                                                      'data3': data3,
-#                                                     })
-
-
-
 
