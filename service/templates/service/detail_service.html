@@ -109,9 +109,10 @@
                         </div>
                         <div class="widget widget_tag_cloud">
                             <h3 class="widget_title">Tags</h3>
-                            <div class="tagcloud"><a href="blog.html">Bride</a> <a href="blog.html">Celebration</a> <a
-                                    href="blog.html">Groom</a> <a href="blog.html">Wedding</a> <a
-                                    href="blog.html">Photo</a> <a href="blog.html">Dress</a></div>
+                            <div class="tagcloud"><a href="blog.html">{{ typeservice.tags.all|join:"  | " }}</a> 
+                               
+                                
+                                </div>
                         </div>
                     </aside>
                 </div>

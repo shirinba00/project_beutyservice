@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import  Post,Category
+from .models import  Comment, Post,Category
 
 
 
@@ -23,3 +23,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
         'slug': ('name',)
     }
+
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('fullname','email','text', 'datetime_created','is_reply','replay_id')

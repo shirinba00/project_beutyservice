@@ -58,7 +58,7 @@ class PersonServiceAdmin(admin.ModelAdmin):
     def email(self,personservice):
         return personservice.user.email
 
-
+   
 
 
 

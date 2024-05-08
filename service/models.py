@@ -103,7 +103,7 @@ class ReserveService(models.Model):
     service = models.ForeignKey(TypeService, on_delete=models.PROTECT, related_name='reserve_service')
     firstname = models.CharField(max_length=50, blank=True, null=True)
     lastname = models.CharField(max_length=50, blank=True, null=True)
-    email = models.EmailField(unique=True)
+    email = models.EmailField()
     phone = models.BigIntegerField(blank=True, null=True, unique=True)
     date = models.DateField(default=timezone.now)
     time = models.TimeField(default=timezone.now)
@@ -127,7 +127,8 @@ class PersonService(models.Model):
     def __str__(self):
         return self.phone
 
-
+    def get_absolute_url(self):
+        return reverse('service:detail_personservice', args=[self.id])
 
 
 

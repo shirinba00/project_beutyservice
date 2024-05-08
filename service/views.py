@@ -1,34 +1,38 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.contrib import messages
-
-from core.models import CustomUser
 from .models import Category, ReserveService, TypeService,PersonService
 from .forms import *
 from django.db.models import Q
 
-from django.views.generic import ListView
 
 class PersonServiceView(View):
+    personservice = PersonService.objects.all()
     def get(self, request):
         personservice = PersonService.objects.all()
         typeservice = TypeService.objects.all()
-        context = {'personservice': personservice,'typeservice': typeservice,}
+        context = {'personservice': personservice,'typeservice':typeservice}
         return render(request, 'service/team.html', context)
 
 
-# def display_all_personservice(request):
-#     personservices = PersonService.objects.all()
-#     context = {'persons': personservices}
-#     return render(request, 'service/team.html', context)
+def personservice_detail(request, personservice_id):
+    personservice = get_object_or_404(PersonService, id=personservice_id)
+    # similar = personservice.tags.similar_objects()[:3]
+    return render(request, 'service/team_detail.html', {'personservice': personservice,
+                                                        #  'similar': similar
+                                                         })
+
+
 
 # display all typeservice
 class AllTypeServiceView(View):
+    typeservice = TypeService.objects.all()
    
     def get(self, request):
         person_service = TypeService.objects.all()
         reserveservice_form = ReserveServiceForm()
-        context = {'person_service': person_service, 'form': reserveservice_form}
+        typeservice = TypeService.objects.all()
+        context = {'person_service': person_service, 'form': reserveservice_form,'typeservice': typeservice, }
         return render(request, 'service/service.html', context)
 
     def post(self, request):
@@ -47,6 +51,7 @@ class AllTypeServiceView(View):
 
 # display detail typeservice
 class DetailTypeServiceView(View):
+    typeservice = TypeService.objects.all()
     def get(self, request, slug):
         typeservice = get_object_or_404(TypeService, slug=slug)
         category = Category.objects.filter(sub_cat=False)

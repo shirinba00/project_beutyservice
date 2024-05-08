@@ -6,209 +6,192 @@
 
 
 
-    <div class="breadcumb-wrapper" data-bg-src="assets/img/breadcumb/breadcumb-bg.jpg">
-        <div class="container">
-            <div class="breadcumb-content">
-                <h2 class="breadcumb-title">Blog Details</h2>
-                <div class="breadcumb-menu-wrapper">
-                    <ul class="breadcumb-menu">
-                        <li><a href="index.html">Home</a></li>
-                        <li>Blog Details</li>
-                    </ul>
-                </div>
+<div class="breadcumb-wrapper" data-bg-src="assets/img/breadcumb/breadcumb-bg.jpg">
+    <div class="container">
+        <div class="breadcumb-content">
+            <h2 class="breadcumb-title">Blog Details</h2>
+            <div class="breadcumb-menu-wrapper">
+                <ul class="breadcumb-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li>Blog Details</li>
+                </ul>
             </div>
         </div>
     </div>
-    <section class="th-blog-wrapper blog-details space-top space-extra-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="th-blog blog-single has-post-thumbnail">
-                        <div class="blog-img"><a href="blog-details.html"><img src="{{post.cover.url}}"
-                                    alt="Blog Image"></a></div>
-                        <div class="blog-content">
-                            <div class="blog-meta"><a href="blog.html"><i class="fa-solid fa-user"></i>
-                                {{ post.author.first_name }}&nbsp;{{ post.author.last_name }}</a> <a href="blog.html"><i class="fa-solid fa-calendar-days"></i>10 July,
-                                    2023</a> <a href="blog-details.html"><i class="fa-solid fa-tags"></i>{{post.category.name}}</a>
+</div>
+<section class="th-blog-wrapper blog-details space-top space-extra-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="th-blog blog-single has-post-thumbnail">
+                    <div class="blog-img"><a href="blog-details.html"><img src="assets/img/blog/blog-s-1-1.jpg"
+                                alt="Blog Image"></a></div>
+                    <div class="blog-content">
+                        <div class="blog-meta"><a href="blog.html"><i class="fa-solid fa-user"> {{
+                                    post.author.first_name }}&nbsp;{{ post.author.last_name }}</i>
+                            </a> <a href="blog.html"><i class="fa-solid fa-calendar-days"></i>{{post.datetime_created}}
+                            </a> <a href="blog-details.html"><i class="fa-solid fa-tags"></i>{{post.category.name}}</a>
+                        </div>
+                        <h2 class="blog-title"><a href="blog-details.html">{{post.title}}
+                            </a></h2>
+                        <p>{{post.text|safe}}</p>
+
+                    </div>
+                    <div class="share-links clearfix">
+                        <div class="row justify-content-between">
+                            <div class="col-sm-auto">
+                                <div class="tagcloud"><a href="blog.html">{{ post.tags.all|join:" | " }}</a>
+                                </div>
                             </div>
-                            <h2 class="blog-title"><a href="blog-details.html">{{post.title}}
-                                    </a></h2>
-                            <p>{{post.text |safe}}</p>
-                             
-
-
-                        <div class="share-links clearfix">
-                            <div class="row justify-content-between">
-                                <div class="col-sm-auto">
-                                    <div class="tagcloud"><a href="">{{ post.tags.all|join:"  |  " }}</a>
-                                            
-                                        </div>
-                                </div>
-                                <div class="col-sm-auto text-xl-end"><span class="share-links-title">Follow Us:</span>
-                                    <ul class="social-links">
-                                        <li><a href="https://facebook.com/" target="_blank"><i
-                                                    class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="https://twitter.com/" target="_blank"><i
-                                                    class="fab fa-twitter"></i></a></li>
-                                        <li><a href="https://linkedin.com/" target="_blank"><i
-                                                    class="fab fa-linkedin-in"></i></a></li>
-                                        <li><a href="https://instagram.com/" target="_blank"><i
-                                                    class="fab fa-instagram"></i></a></li>
-                                    </ul>
-                                </div>
+                            <div class="col-sm-auto text-xl-end"><span class="share-links-title">Follow Us:</span>
+                                <ul class="social-links">
+                                    <li><a href="https://facebook.com/" target="_blank"><i
+                                                class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="https://twitter.com/" target="_blank"><i
+                                                class="fab fa-twitter"></i></a></li>
+                                    <li><a href="https://linkedin.com/" target="_blank"><i
+                                                class="fab fa-linkedin-in"></i></a></li>
+                                    <li><a href="https://instagram.com/" target="_blank"><i
+                                                class="fab fa-instagram"></i></a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-
-
-
-                    <div class="th-comments-wrap">
-                        <h2 class="blog-inner-title h3">Comments (3)</h2>
-                        <ul class="comment-list">
-                            <li class="th-comment-item">
-                                <div class="th-post-comment">
-                                    <div class="comment-avater"><img src="assets/img/blog/comment-author-1.jpg"
-                                            alt="Comment Author"></div>
-                                    <div class="comment-content">
-                                        <div class="">
-                                            <h3 class="name">Adam Jhon</h3><span class="commented-on">25Aug, 2023
-                                                08:56pm</span>
-                                        </div>
-                                        <p class="text">Credibly pontificate transparent quality vectors with quality
-                                            mindshare. Efficiently architect worldwide strategic theme areas after user.
-                                        </p>
-                                        <div class="reply_and_edit"><a href="blog-details.html" class="reply-btn"><i
-                                                    class="fas fa-reply"></i>Reply</a></div>
+                </div>
+                
+                <div class="th-comments-wrap">
+                    <h2 class="blog-inner-title h3"> Comments ({{comment.count}})</h2>
+                    <ul class="comment-list">
+                        {% for comments in comment %}
+                        <li class="th-comment-item">
+                            <div class="th-post-comment">
+                                <div class="comment-avater"><img src="{%static 'assets/img/blog/man.png'%}"
+                                        alt="Comment Author"></div>
+                                <div class="comment-content">
+                                    <div class="">
+                                        <h3 class="name">{{comments.fullname}}</h3><span class="commented-on">
+                                            {{comments.datetime_created}}</span>
                                     </div>
+                                    <p class="text">{{comments.text}}
+                                    </p>
+                                    <div class="reply_and_edit"><a href="blog-details.html" class="reply-btn"><i
+                                                class="fas fa-reply"></i>Reply</a></div>
                                 </div>
-                                <ul class="children">
-                                    <li class="th-comment-item">
-                                        <div class="th-post-comment">
-                                            <div class="comment-avater"><img src="assets/img/blog/comment-author-2.jpg"
-                                                    alt="Comment Author"></div>
-                                            <div class="comment-content">
-                                                <div class="">
-                                                    <h3 class="name">Jhon Abraham</h3><span class="commented-on">25Aug,
-                                                        2023 08:56pm</span>
-                                                </div>
-                                                <p class="text">It is different from airport transfer or port transfer,
-                                                    which are services that pick you up</p>
-                                                <div class="reply_and_edit"><a href="blog-details.html"
-                                                        class="reply-btn"><i class="fas fa-reply"></i>Reply</a></div>
+                            </div>
+                            <ul class="children">
+                                {% for data in comments.comment_replay.all %}
+                                <li class="th-comment-item">
+                                    <div class="th-post-comment">
+                                        <div class="comment-avater"><img src="{%static 'assets/img/blog/man2.jpg'%}"
+                                                alt="Comment Author"></div>
+                                        <div class="comment-content">
+                                            <div class="">
+                                                <h3 class="name">{{data.fullname}}</h3><span class="commented-on">
+                                                    {{data.datetime_created}}
+                                                   </span>
                                             </div>
+                                            <p class="text">{{data.datetime_created}}</p>
+                                            <div class="reply_and_edit"><a href="blog-details.html"
+                                                    class="reply-btn"><i class="fas fa-reply"></i>Reply</a></div>
                                         </div>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="th-comment-item">
-                                <div class="th-post-comment">
-                                    <div class="comment-avater"><img src="assets/img/blog/comment-author-3.jpg"
-                                            alt="Comment Author"></div>
-                                    <div class="comment-content">
-                                        <div class="">
-                                            <h3 class="name">Anadi Juila</h3><span class="commented-on">25Aug, 2023
-                                                08:56pm</span>
-                                        </div>
-                                        <p class="text">Credibly pontificate transparent quality vectors with quality
-                                            mindshare. Efficiently architect worldwide strategic theme areas after user.
-                                        </p>
-                                        <div class="reply_and_edit"><a href="blog-details.html" class="reply-btn"><i
-                                                    class="fas fa-reply"></i>Reply</a></div>
                                     </div>
+                                </li>
+                            </ul>
+                            {%endfor%}
+                        </li>
+                      
+                    </ul>
+                </div>
+                <div class="th-comment-form">
+                    <div class="form-title">
+                        <h3 class="blog-inner-title mb-2"><i class="fa-solid fa-reply"></i>Leave a Reply</h3>
+                        <p class="form-text">Your email address will not be published. Required fields are marked
+                        </p>
+                    </div>
+                    <form action="{% url 'blog:comment_replay' post.id  comments.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="row gy-4">
+                        
+                            <div class="col-md-6 form-group"><i class="fal fa-user"></i> <input type="text"
+                                    name="fullname" id="fullname" placeholder="Your FullName*" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 form-group"><i class="fal fa-envelope"></i> <input type="email"
+                                name="email" id="email" placeholder="Your Email*" class="form-control" required>
+                            </div>
+                            <div class="col-12 form-group"><i class="fa-sharp fa-light fa-comments"></i> <textarea
+                                name="text" id="text" placeholder="Write a Comment*" class="form-control" required></textarea>
+			                </div>
+                                <div class="col-12 form-group mb-0">
+                                    <button type="submit" class="th-btn">Post <i  class="fa-regular fa-arrow-right"></i></button>
+                                      
                                 </div>
+                        
+                        </div>
+                    </form>
+                    {%endfor%}
+                
+                </div>
+
+            
+            <div class="col-lg-4">
+                <aside class="sidebar-area">
+                    <div class="widget widget_search">
+                        <form  action="{% url 'blog:posts' %}" class="search-form">
+                            {% csrf_token %}
+                            
+                            <input type="search" name="search" placeholder="Enter Keyword"> <button
+                                type="submit"><i class="far fa-search"></i></button>
+                            </form>
+                    </div>
+
+
+                    <div class="widget widget_categories">
+                        <h3 class="widget_title">Categories</h3>
+                        <ul>
+                            {%for cat in category %}
+                            <li><a href="{{ cat.get_absolute_url }}"><img
+                                        src="{%static  'assets/img/theme-img/flower.svg'%}" alt="">
+                                    {{cat.name}}</a>
+                                <span>({{ forloop.counter }})</span>
+
                             </li>
+                            {%endfor%}
+
                         </ul>
                     </div>
-                    <div class="th-comment-form">
-                        <div class="form-title">
-                            <h3 class="blog-inner-title mb-2"><i class="fa-solid fa-reply"></i>Leave a Reply</h3>
-                            <p class="form-text">Your email address will not be published. Required fields are marked
-                            </p>
-                        </div>
-                        <div class="row gy-4">
-                            <div class="col-md-6 form-group"><i class="fal fa-user"></i> <input type="text"
-                                    placeholder="Your Name*" class="form-control"></div>
-                            <div class="col-md-6 form-group"><i class="fal fa-envelope"></i> <input type="text"
-                                    placeholder="Your Email*" class="form-control"></div>
-                            <div class="col-12 form-group"><i class="fa-sharp fa-light fa-comments"></i> <textarea
-                                    placeholder="Write a Comment*" class="form-control"></textarea></div>
-                            <div class="col-12 form-group"><input type="checkbox" id="html"> <label for="html">Save my
-                                    name, email, and website in this browser for the next time I comment.</label></div>
-                            <div class="col-12 form-group mb-0"><button class="th-btn">Post Comment<i
-                                        class="fa-regular fa-arrow-right"></i></button></div>
-                        </div>
-                    </div>
-                </div>
+                    <div class="widget">
+                        <h3 class="widget_title">Recent Posts<span class="shape"></span></h3>
+                        <div class="recent-post-wrap">
+                            {% for recent_post in create %}
+                            <div class="recent-post">
 
-
-
-                <div class="col-lg-4">
-                    <aside class="sidebar-area">
-                        <div class="widget widget_search">
-                            <form class="search-form"><input type="text" placeholder="Enter Keyword"> <button
-                                    type="submit"><i class="far fa-search"></i></button></form>
-                        </div>
-                        <div class="widget widget_categories">
-                            <h3 class="widget_title">Categories</h3>
-                            <ul>
-                                <li><a href="blog.html"><img src="assets/img/theme-img/flower.svg" alt=""> Body
-                                        Treatments</a> <span>(8)</span></li>
-                                <li><a href="blog.html"><img src="assets/img/theme-img/flower.svg" alt=""> Facials</a>
-                                    <span>(6)</span></li>
-                                <li><a href="blog.html"><img src="assets/img/theme-img/flower.svg" alt="">Massages</a>
-                                    <span>(5)</span></li>
-                                <li><a href="blog.html"><img src="assets/img/theme-img/flower.svg" alt="">Nail Art</a>
-                                    <span>(2)</span></li>
-                                <li><a href="blog.html"><img src="assets/img/theme-img/flower.svg" alt="">Waxing</a>
-                                    <span>(7)</span></li>
-                                <li><a href="blog.html"><img src="assets/img/theme-img/flower.svg" alt="">Hair care</a>
-                                    <span>(9)</span></li>
-                            </ul>
-                        </div>
-                        <div class="widget">
-                            <h3 class="widget_title">Recent Posts<span class="shape"></span></h3>
-                            <div class="recent-post-wrap">
-                                <div class="recent-post">
-                                    <div class="media-img"><a href="blog-details.html"><img
-                                                src="assets/img/blog/recent-post-1-1.jpg" alt="Blog Image"></a></div>
-                                    <div class="media-body">
-                                        <div class="recent-post-meta"><a href="blog.html"><i
-                                                    class="fas fa-calendar-days"></i>21 June, 2023</a></div>
-                                        <h4 class="post-title"><a class="text-inherit" href="blog-details.html">Lighting
-                                                The Way With Guest Daniel Stern</a></h4>
+                                <div style="height: auto;width: 100px;" class="media-img"><a
+                                        href="blog-details.html"><img src="{{recent_post.cover.url}}"
+                                            alt="Blog Image"></a></div>
+                                <div class="media-body">
+                                    <div class="recent-post-meta"><a href="blog.html"><i
+                                                class="fas fa-calendar-days"></i>{{recent_post.datetime_created}}</a>
                                     </div>
-                                </div>
-                                <div class="recent-post">
-                                    <div class="media-img"><a href="blog-details.html"><img
-                                                src="assets/img/blog/recent-post-1-2.jpg" alt="Blog Image"></a></div>
-                                    <div class="media-body">
-                                        <div class="recent-post-meta"><a href="blog.html"><i
-                                                    class="fas fa-calendar-days"></i>24 June, 2023</a></div>
-                                        <h4 class="post-title"><a class="text-inherit" href="blog-details.html">Lighting
-                                                The Way With Guest Daniel Stern</a></h4>
-                                    </div>
-                                </div>
-                                <div class="recent-post">
-                                    <div class="media-img"><a href="blog-details.html"><img
-                                                src="assets/img/blog/recent-post-1-3.jpg" alt="Blog Image"></a></div>
-                                    <div class="media-body">
-                                        <div class="recent-post-meta"><a href="blog.html"><i
-                                                    class="fas fa-calendar-days"></i>27 June, 2023</a></div>
-                                        <h4 class="post-title"><a class="text-inherit" href="blog-details.html">Lighting
-                                                The Way With Guest Daniel Stern</a></h4>
-                                    </div>
+                                    <h4 class="post-title"><a class="text-inherit"
+                                            href="{{recent_post.get_absolute_ur}}">
+                                            {{recent_post.title}}</a></h4>
                                 </div>
                             </div>
+                            {%endfor%}
+
+
+
                         </div>
-                        <div class="widget widget_tag_cloud">
-                            <h3 class="widget_title">Popular Tags</h3>
-                            <div class="tagcloud"><a href="blog.html">Beauty Spa</a> <a href="blog.html">Care</a> <a
-                                    href="blog.html">Massage</a> <a href="blog.html">Skincare</a> <a
-                                    href="blog.html">Relax</a> <a href="blog.html">Beauty Fix</a></div>
+                    </div>
+                    <div class="widget widget_tag_cloud">
+                        <h3 class="widget_title">Popular Tags</h3>
+                        <div class="tagcloud"><a href="blog.html">{{ post.tags.all|join:" | " }}</a>
+
                         </div>
-                    </aside>
-                </div>
+                    </div>
+                </aside>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 {%endblock content%}

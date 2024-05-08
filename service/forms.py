@@ -1,7 +1,7 @@
 
 from django import forms
 
-from service.models import ReserveService
+from service.models import ReserveService,PersonService
 
 
 
@@ -14,4 +14,11 @@ class SearchTypeService(forms.Form):
 class ReserveServiceForm(forms.ModelForm):
     class Meta:
         model = ReserveService
-        fields = ['firstname','lastname', 'email','phone','date','time','service', ]
+        fields = ['firstname','lastname', 'email','phone','service','date','time', ]
+
+
+
+# class PersonServiceForm(forms.ModelForm):
+#     class Meta:
+#         model = PersonService
+    
