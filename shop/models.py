@@ -22,12 +22,13 @@ class CategoryProduct(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('products:cat_prod', args=[self.slug, self.id])
+        return reverse('shop:cat_prod', args=[self.slug,])
 
 class Product(models.Model):
     slug = models.SlugField(allow_unicode=True, unique=True, null=True, blank=True,)
     name = models.CharField(max_length=200,)
     information_short = RichTextUploadingField(blank=True, null=True,)
+    discription = RichTextUploadingField(blank=True, null=True,)
     unit_price = models.IntegerField()
     discount = models.IntegerField(blank=True, null=True,)
     total_price = models.IntegerField()
@@ -64,7 +65,7 @@ class Product(models.Model):
     #         rate = round(data['avg'], )
     #     return rate
     def get_absolute_url(self):
-        return reverse('products:single_product', args=[self.slug, self.id])
+        return reverse('shop:detail_product', args=[self.slug])
 
 class Brand(models.Model):
     name = models.CharField(max_length=100)

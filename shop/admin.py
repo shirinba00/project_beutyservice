@@ -1,5 +1,33 @@
 from django.contrib import admin
-# from . import models
+from . import models
+
+
+
+@admin.register(models.Product)
+class ProductAdmin(admin.ModelAdmin):
+    class ProductAdmin(admin.ModelAdmin):
+        list_display = ['name', 'slug', 'id', 'count', 'available', 'unit_price', 'discount',
+                    'image', 'SKU', 'information_short', 'expire_date', 'favourite']
+    list_filter = ('available',)
+    # list_editable = ('available', 'unit_price',)
+    # search_fields = ('name','category',)
+    prepopulated_fields = {
+        'slug': ('name',)
+    }
+    # autocomplete_fields = ['category', ]
+
+
+@admin.register(models.CategoryProduct)
+class CategoryProductsAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    list_filter = ['name', ]
+    prepopulated_fields = {
+
+        'slug': ('name',)
+    }
+
+
+
 
 # class CartItemInline(admin.TabularInline):
 #     model = models.CartItem
