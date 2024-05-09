@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'service',
     'pages',
     'blog',
+    'shop',
     
 
      # third party
