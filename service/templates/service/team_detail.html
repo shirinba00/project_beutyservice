@@ -56,55 +56,21 @@
                 </div>
                 <div class="skill-card_wrapp">
                     <h4 class="skill-card_title">Personal Skills</h4>
-                    <div class="skill-card">
-                        <div class="skill-feature style2">
-                            <h5 class="skill-feature_title">Face Wash</h5>
-                            <div class="progress">
-                                <div class="progress-bar" style="width: 80%;">
-                                    <div class="progress-value">80%</div>
+                    <div class="row">
+                        {% for skills in personservice.skill_personservice.all %}
+                        <div class="col-md-6">
+                            <div class="skill-card">
+                                <div class="skill-feature style2">
+                                    <h5 class="skill-feature_title">{{ skills.title }}</h5><br><br>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: {{ skills.Skill_level }}%;">
+                                            <div class="progress-value">{{ skills.Skill_level }}%</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="skill-feature style2">
-                            <h5 class="skill-feature_title">Hair Cut</h5>
-                            <div class="progress">
-                                <div class="progress-bar" style="width: 90%;">
-                                    <div class="progress-value">90%</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill-feature style2">
-                            <h5 class="skill-feature_title">Hair Color</h5>
-                            <div class="progress">
-                                <div class="progress-bar" style="width: 95%;">
-                                    <div class="progress-value">95%</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill-feature style2">
-                            <h5 class="skill-feature_title">Spa</h5>
-                            <div class="progress">
-                                <div class="progress-bar" style="width: 86%;">
-                                    <div class="progress-value">86%</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill-feature style2">
-                            <h5 class="skill-feature_title">Facial</h5>
-                            <div class="progress">
-                                <div class="progress-bar" style="width: 70%;">
-                                    <div class="progress-value">70%</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill-feature style2">
-                            <h5 class="skill-feature_title">Bread Cut</h5>
-                            <div class="progress">
-                                <div class="progress-bar" style="width: 75%;">
-                                    <div class="progress-value">75%</div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -113,17 +79,17 @@
             <div class="col-12">
                 <div class="about-description">
                     <h4>About Me</h4>
-                    <p class="about-card_text">{{personservice.description}}
+                    <p class="about-card_text">{{personservice.description |safe}}
           .</p>
 
                 </div>
             </div>
         </div>
     </div>
-    <div class="shape-mockup movingX d-none d-xxl-block" data-top="20%" data-right="0%"><img
+    <!-- <div class="shape-mockup movingX d-none d-xxl-block" data-top="20%" data-right="0%"><img
             src="{%static 'assets/img/shape/flower_1_12.png'%}" alt="shape"></div>
     <div class="shape-mockup jump d-none d-xxl-block" data-bottom="20%" data-left="0%"><img
-            src="{%static 'assets/img/shape/flower_1_16.png'%}" alt="shape"></div>
+            src="{%static 'assets/img/shape/flower_1_16.png'%}" alt="shape"></div> -->
 </section>
 
 
@@ -136,12 +102,13 @@
         </div>
         <div class="row slider-shadow th-carousel" data-slide-show="4" data-lg-slide-show="3" data-md-slide-show="2"
             data-sm-slide-show="2" data-arrows="true">
+            {% for tag in similar %}
             <div class="col-sm-6 col-lg-4 col-xxl-3">
                 <div class="th-team team-box style2">
-                    <div class="team-img"><img src="assets/img/team/team_3_1.jpg" alt="Team"></div>
+                    <div class="team-img"><img src="{{ tag.image.url }}" alt="Team"></div>
                     <div class="team-box_content">
-                        <h3 class="box-title"><a href="team-details.html">Daniel Martin</a></h3><span
-                            class="team-desig">Hair Specialist</span>
+                        <h3 class="box-title"><a href="{% url 'service:detail_personservice'  tag.id %}">{{ tag.user.firstname }} {{ tag.user.lastname }}</a></h3><span
+                            class="team-desig">{{ tag.typeservice.name }}</span>
                         <div class="social-links"><a target="_blank" href="https://facebook.com/"><i
                                     class="fab fa-facebook-f"></i></a> <a target="_blank"
                                 href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank"
@@ -151,69 +118,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-4 col-xxl-3">
-                <div class="th-team team-box style2">
-                    <div class="team-img"><img src="assets/img/team/team_3_2.jpg" alt="Team"></div>
-                    <div class="team-box_content">
-                        <h3 class="box-title"><a href="team-details.html">Emma Mary</a></h3><span
-                            class="team-desig">Hair Specialist</span>
-                        <div class="social-links"><a target="_blank" href="https://facebook.com/"><i
-                                    class="fab fa-facebook-f"></i></a> <a target="_blank"
-                                href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank"
-                                href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a> <a
-                                target="_blank" href="https://www.skype.com/"><i class="fa-brands fa-skype"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 col-xxl-3">
-                <div class="th-team team-box style2">
-                    <div class="team-img"><img src="assets/img/team/team_3_3.jpg" alt="Team"></div>
-                    <div class="team-box_content">
-                        <h3 class="box-title"><a href="team-details.html">Michel Jonson</a></h3><span
-                            class="team-desig">Hair Specialist</span>
-                        <div class="social-links"><a target="_blank" href="https://facebook.com/"><i
-                                    class="fab fa-facebook-f"></i></a> <a target="_blank"
-                                href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank"
-                                href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a> <a
-                                target="_blank" href="https://www.skype.com/"><i class="fa-brands fa-skype"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 col-xxl-3">
-                <div class="th-team team-box style2">
-                    <div class="team-img"><img src="assets/img/team/team_3_4.jpg" alt="Team"></div>
-                    <div class="team-box_content">
-                        <h3 class="box-title"><a href="team-details.html">Jessica Lauren</a></h3><span
-                            class="team-desig">Hair Specialist</span>
-                        <div class="social-links"><a target="_blank" href="https://facebook.com/"><i
-                                    class="fab fa-facebook-f"></i></a> <a target="_blank"
-                                href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank"
-                                href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a> <a
-                                target="_blank" href="https://www.skype.com/"><i class="fa-brands fa-skype"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 col-xxl-3">
-                <div class="th-team team-box style2">
-                    <div class="team-img"><img src="assets/img/team/team_3_5.jpg" alt="Team"></div>
-                    <div class="team-box_content">
-                        <h3 class="box-title"><a href="team-details.html">Albert Flores</a></h3><span
-                            class="team-desig">Hair Specialist</span>
-                        <div class="social-links"><a target="_blank" href="https://facebook.com/"><i
-                                    class="fab fa-facebook-f"></i></a> <a target="_blank"
-                                href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank"
-                                href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a> <a
-                                target="_blank" href="https://www.skype.com/"><i class="fa-brands fa-skype"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {%endfor%}
+
         </div>
     </div>
-    <div class="shape-mockup movingX d-none d-xxl-block" data-bottom="20%" data-right="0%"><img
-            src="assets/img/shape/flower_1_12.png" alt="shape"></div>
+    <!-- <div class="shape-mockup movingX d-none d-xxl-block" data-bottom="20%" data-right="0%">
+        <img
+            src="{%static 'assets/img/shape/flower_1_12.png'%}" alt="shape">
+        </div> -->
 </section>
 {%endblock content%}

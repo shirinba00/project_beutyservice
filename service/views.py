@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.contrib import messages
-from .models import Category, ReserveService, TypeService,PersonService
+from .models import Category, ReserveService, Skill, TypeService,PersonService
 from .forms import *
 from django.db.models import Q
 
@@ -15,11 +15,13 @@ class PersonServiceView(View):
         return render(request, 'service/team.html', context)
 
 
-def personservice_detail(request, personservice_id):
+def personservice_detail(request, personservice_id,):
     personservice = get_object_or_404(PersonService, id=personservice_id)
-    # similar = personservice.tags.similar_objects()[:3]
+    similar = personservice.tags.similar_objects()[:4]
+    skill = Skill.objects.all()
     return render(request, 'service/team_detail.html', {'personservice': personservice,
-                                                        #  'similar': similar
+                                                         'similar': similar,
+                                                         'skill':skill,
                                                          })
 
 

@@ -7,6 +7,7 @@ from taggit.managers import TaggableManager
 from uuid import uuid4
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils import timezone
+from django.db.models import Avg
 
 
 
@@ -27,12 +28,6 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse('service:category_sub', args=[self.slug])
-
-
-
-
-    
-
 
 class SampleGalleryPersonService(models.Model):
     person =models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -68,7 +63,6 @@ class Address(models.Model):
     province = models.CharField(max_length=255)
     postalcode= models.CharField(max_length=255)
     street= models.CharField(max_length=255)
-
      
 class TypeService(models.Model):
     STATUS_CHOICES = (
@@ -98,7 +92,6 @@ class TypeService(models.Model):
     def get_absolute_url(self):
         return reverse('service:detail_service', args=[self.slug])
 
-
 class ReserveService(models.Model):
     service = models.ForeignKey(TypeService, on_delete=models.PROTECT, related_name='reserve_service')
     firstname = models.CharField(max_length=50, blank=True, null=True)
@@ -123,6 +116,7 @@ class PersonService(models.Model):
     pinterest = models.CharField(max_length=50,blank=True ,null=True,)
     typeservice = models.ForeignKey(TypeService,on_delete=models.PROTECT,blank=True,
                                          related_name='typeservice_personservice')
+    tags = TaggableManager(blank=True, verbose_name= 'tags_service')
           
     def __str__(self):
         return self.phone
@@ -130,10 +124,13 @@ class PersonService(models.Model):
     def get_absolute_url(self):
         return reverse('service:detail_personservice', args=[self.id])
 
-
-
-
-
+class Skill(models.Model):
+    personservice = models.ForeignKey(PersonService,on_delete=models.PROTECT,blank=True,
+                                         related_name='skill_personservice')
+    title = models.CharField(max_length=255,)
+    Skill_level = models.IntegerField()
+    def __str__(self):
+        return self.personservice.phone
 
 class Comment(models.Model):
     COMMENT_STATUS_WAITING = 'w'
@@ -155,11 +152,87 @@ class Comment(models.Model):
         return self.name
 
 
+
+# class CategoryProduct(models.Model):
+#     sub_category = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='sub')
+#     sub_cat = models.BooleanField(default=False)
+#     name = models.CharField(max_length=200)
+#     create = models.DateTimeField(auto_now_add=True)
+#     update = models.DateTimeField(auto_now=True)
+#     slug = models.SlugField(allow_unicode=True, unique=True, null=True, blank=True)
+#     image = models.ImageField(upload_to='category/', blank=True, null=True)
+
+#     def __str__(self):
+#         return self.name
+
+#     def get_absolute_url(self):
+#         return reverse('products:cat_prod', args=[self.slug, self.id])
+
+# class Product(models.Model):
+#     slug = models.SlugField(allow_unicode=True, unique=True, null=True, blank=True,)
+#     name = models.CharField(max_length=200,)
+#     information_short = RichTextUploadingField(blank=True, null=True,)
+#     unit_price = models.IntegerField()
+#     discount = models.IntegerField(blank=True, null=True,)
+#     total_price = models.IntegerField()
+#     count = models.PositiveIntegerField()
+#     available = models.BooleanField(default=True,)
+#     created_datetime = models.DateTimeField(auto_now_add=True)
+#     update_datetime = models.DateTimeField(auto_now=True)
+#     expire_date = models.CharField(max_length=50, blank=True, null=True,)
+#     brand = models.ForeignKey('Brand', on_delete=models.PROTECT, related_name='product_brands', null=True, blank=True,)
+#     company = models.ForeignKey('Company', on_delete=models.PROTECT, related_name='product_company', blank=True, null=True,)
+#     country = models.ForeignKey(CategoryProduct, on_delete=models.PROTECT, blank=True, null=True,related_name='product_country')
+#     category = models.ManyToManyField(Category, blank=True, related_name='product_category')
+#     SKU = models.CharField(max_length=200, blank=True, null=True,)
+#     image = models.ImageField(upload_to='product/',)
+#     favourite = models.ManyToManyField(CustomUser, blank=True, related_name='fa_user',)
+#     total_favourite = models.IntegerField(default=0,)
+#     tags = TaggableManager(blank=True)
+
+#     def __str__(self):
+#         return self.name
+
+#     def save(self, *args, **kwargs):
+#         if not self.discount:
+#             self.total_price = self.unit_price
+#         elif self.discount:
+#             total = (self.discount * self.unit_price) / 100
+#             self.total_price = int(self.unit_price - total)
+#         super().save(*args, **kwargs)
+
+#     def average(self):
+#         data = Comment.objects.filter(is_replay=False, product=self).aggregate(avg=Avg('star'))
+#         rate = 0
+#         if data['avg'] is not None:
+#             rate = round(data['avg'], )
+#         return rate
+#     def get_absolute_url(self):
+#         return reverse('products:single_product', args=[self.slug, self.id])
+
+# class Brand(models.Model):
+#     name = models.CharField(max_length=100)
+#     slug = models.SlugField(allow_unicode=True, unique=True, null=True, blank=True, verbose_name="اسلاگ برند")
+
+#     image = models.ImageField(upload_to='brand/', blank=True, null=True)
+#     descriptions = RichTextUploadingField(blank=True, null=True)
+
+#     def __str__(self):
+#         return self.name
+
+# class Company(models.Model):
+#     name = models.CharField(max_length=50)
+
+#     def __str__(self):
+#         return self.name
+
+
+
+
+
 class Cart(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid4)
     created_at = models.DateTimeField(auto_now_add=True)
-
-
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
@@ -169,13 +242,9 @@ class CartItem(models.Model):
     class Meta:
         unique_together = [['cart', 'typeservice']]
 
-
-
-
 class Discount(models.Model):
     discount = models.FloatField()
     description = models.CharField(max_length=255)
-
 
 class Order(models.Model):
     ORDER_STATUS_PAID = 'p'
@@ -192,7 +261,6 @@ class Order(models.Model):
     status = models.CharField(max_length=1, choices=ORDER_STATUS, default=ORDER_STATUS_UNPAID)
     # objects =models.Manager()
     # unpaid_orders = UnpaidOrderManager()
-
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.PROTECT, related_name='items')

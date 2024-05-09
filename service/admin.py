@@ -37,10 +37,10 @@ class SampleGalleryInline(admin.TabularInline):
     min_num = 1
 
 
-# @admin.register(models.PersonService)
-# class PersonServiceAdmin(admin.ModelAdmin):
-#     list_display = ['user','typeservice','phone', 'information_short','image',
-#                     'description','instagram','linkedin','facebook','pinterest',]
+@admin.register(models.Skill)
+class SkillAdmin(admin.ModelAdmin):
+    list_display = ['personservice','title','Skill_level',
+                  ]
 
 
 @admin.register(models.PersonService)
