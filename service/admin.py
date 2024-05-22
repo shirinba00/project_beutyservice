@@ -46,7 +46,7 @@ class SkillAdmin(admin.ModelAdmin):
 @admin.register(models.PersonService)
 class PersonServiceAdmin(admin.ModelAdmin):
     list_display =  ['first_name','last_name','email','typeservice','phone', 'information_short','image',
-                    'description','instagram','linkedin','facebook','pinterest',]
+                    'description','instagram','linkedin','facebook','pinterest','experience',]
     ordering = ('user__last_name','user__first_name',)
     search_fields = ('user__email__istartswith','user__last_name__istartswith','user__first_name__istartswith',)
     def first_name(self,personservice):

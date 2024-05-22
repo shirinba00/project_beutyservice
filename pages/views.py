@@ -6,18 +6,21 @@ from pages.forms import ContactUSForm
 from service.forms import ReserveServiceForm
 from service.models import TypeService
 from .models import AboutUS, ContactUs, ImageAboutUs
+from service.models import PersonService
 
 # display AbouUs
 class AllAboutUsView(View):
     def get(self, request):
         typeservice = TypeService.objects.all()
+        personservice = PersonService.objects.all()
         reserveservice_form = ReserveServiceForm()
         aboutus = AboutUS.objects.all()
-        context = {'aboutus': aboutus,'typeservice': typeservice,'reserveservice_form': reserveservice_form}
+        context = {'aboutus': aboutus,'typeservice': typeservice,'personservice': personservice, 'reserveservice_form': reserveservice_form}
         return render(request, 'pages/AboutUs.html', context)
     def post(self, request):
         reserveservice_form = ReserveServiceForm(request.POST)
         typeservice = TypeService.objects.all()
+        personservice = PersonService.objects.all()
         if reserveservice_form.is_valid():
             reserveservice_form.save()
             messages.success(request, 'Your reservation has been successfully submitted.')
@@ -25,7 +28,7 @@ class AllAboutUsView(View):
         else:
             messages.error(request, 'Failed to submit reservation. Please check the form.')
             typeservice = TypeService.objects.all()
-            context = {'typeservice': typeservice, 'form': reserveservice_form}
+            context = {'typeservice': typeservice,'personservice': personservice, 'form': reserveservice_form}
             return render(request, 'service/service.html', context)
           
 

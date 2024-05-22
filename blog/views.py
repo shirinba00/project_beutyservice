@@ -6,46 +6,67 @@ import urllib3
 from django.db.models import Q
 from blog.forms import CommentForm, ReplayForm, SearchPost
 from .models import Category,Post,Comment
+from pages.models import AboutUS,ContactUs
 from django.contrib import messages
+from taggit.models import Tag
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-
-def post_list(request, slug=None,id=None):
-    post = Post.objects.all().order_by('-datetime_created')
+def post_list(request, slug=None, id=None):
+    posts = Post.objects.all().order_by('-datetime_created')
     form = SearchPost()
     category = Category.objects.filter(sub_cat=False)
-    paginator = Paginator(post, 3)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    tag_slug = request.GET.get('tag_slug')
+    
+    if tag_slug:
+        try:
+            tag = Tag.objects.get(slug=tag_slug)
+            posts = Post.objects.filter(tags=tag)
+        except Tag.DoesNotExist:
+            posts = None
+
     if 'search' in request.GET:
         form = SearchPost(request.GET)
         if form.is_valid():
             data = form.cleaned_data['search']
-            page_obj = post.filter(title__icontains=data)
-            paginator = Paginator(page_obj,3)
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
-    if slug and id:
-        data = get_object_or_404(Category,)
-        page_obj = post.filter(category=data)
-        paginator = Paginator(page_obj,3)
-        page_number = request.GET.get('page')
+            posts = posts.filter(title__icontains=data)
+
+    paginator = Paginator(posts, 3)
+    page_number = request.GET.get('page')
+    try:
         page_obj = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        page_obj = paginator.get_page(1)
+    except EmptyPage:
+        page_obj = paginator.get_page(paginator.num_pages)
 
     return render(request, 'blog/blog.html', {'post': page_obj, 'category': category,
-                                                 
-                                                  'form': form,'page_number':page_number,
-                                                  })
-
-
+                                              'form': form, 'tag_slug': tag_slug})
 # Display List Category
 class CategoryAndSubView(View):
     def get(self, request, slug=None):
         post = Post.objects.all().order_by('-datetime_created')
         category = Category.objects.filter(sub_cat=False)
+        paginator = Paginator(post, 3)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        if 'search' in request.GET:
+            form = SearchPost(request.GET)
+            if form.is_valid():
+                data = form.cleaned_data['search']
+                page_obj = post.filter(title__icontains=data)
+                paginator = Paginator(page_obj,3)
+                page_number = request.GET.get('page')
+                page_obj = paginator.get_page(page_number)
         if slug:
             category_slug = get_object_or_404(Category, slug=slug)
-        context = {'category': category,'category_slug':category_slug,'post':post,}
+            # data = get_object_or_404(Category)
+            # page_obj = post.filter(category=data)
+            # paginator = Paginator(page_obj,3)
+            # page_number = request.GET.get('page')
+            # page_obj = paginator.get_page(page_number)
+        context = {'category': category,'category_slug':category_slug,'post':page_obj,'page_number':page_number,}
         return render(request, 'blog/blog.html', context)
 
 
@@ -85,7 +106,14 @@ def post_detail(request, slug):
                                                     })
 
 
+def tagged_posts(request, tag_slug):
+    tag = Tag.objects.get(slug=tag_slug)
+    post= Post.objects.filter(tags=tag)
+    paginator = Paginator(post, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
+    return render(request, 'blog/blog.html', {'tag': tag, 'post': page_obj,})
 
 def comment_post(request, id):
     url = request.META.get('HTTP_REFERER')
@@ -123,18 +151,16 @@ def comment_replay(request, id, comment_id):
 
 
 
-# # display posts in category and subcategory
-# def post_list_by_category(request, category_id):
-#     # category = get_object_or_404(Category, id=category_id)
-#     product = Product.objects.all().order_by('-created_datetime')[:10]
-#     category = get_object_or_404(Category, slug=uri_to_iri(category_id))
-#     # post = Post.objects.all().order_by('-datetime_created')
-#     # create = Post.objects.all().order_by('-datetime_created')[:3]
-#     create = Post.objects.all().order_by('-num_view')[:12]
-#     posts = category.post.all()
+# display posts in category and subcategory
+def post_list_by_category(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    post = Post.objects.filter(category=category)
+    paginator = Paginator(post, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    categories = Category.objects.filter(sub_cat=False)
+    
+    return render(request, "blog/blog.html", {'category': category, 'post': page_obj, 'categories': categories})
 
-#     return render(request, "mag/post_list.html", {'posts': posts, 'category': category,
-#                                                   'create': create,
-#                                                   'product': product,
-#                                                   })
 

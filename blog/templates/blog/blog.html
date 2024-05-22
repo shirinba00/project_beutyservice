@@ -1,22 +1,22 @@
-{% extends '_base.html' %}
+{% extends '_base1.html' %}
 {% load static %}
 {% block page_title %}Blog{% endblock %}
 {% block content %}
-{% load page_shop %}
+{% load page_temp %}
 
-    <div class="breadcumb-wrapper" data-bg-src="assets/img/breadcumb/breadcumb-bg.jpg">
-        <div class="container">
-            <div class="breadcumb-content">
-                <h2 class="breadcumb-title">Blog – Grid (3 Columns)</h2>
+     <!-- <div class="breadcumb-wrapper"> 
+         <div class="container">
+           <div class="breadcumb-content">
+                <h2 class="breadcumb-title">Blog</h2>
                 <div class="breadcumb-menu-wrapper">
                     <ul class="breadcumb-menu">
                         <li><a href="index.html">Home</a></li>
-                        <li>Blog – Grid (3 Columns)</li>
+                        <li>Blog</li>
                     </ul>
                 </div>
             </div>
-        </div>
-    </div>
+       </div>
+    </div> -->
     <section class="th-blog-wrapper space-top space-extra-bottom">
         <div class="container th-container">
             <div class="row">
@@ -33,15 +33,50 @@
                                                 href="{{posts.get_absolute_url}}"><i class="fa-solid fa-tags"></i>{{ posts.tags.all|join:"," }}</a></div>
                                         <h2 class="blog-title"><a href="{{posts.get_absolute_url}}">{{posts.title}}
                                                 </a></h2>
-                                        <p class="blog-text">{{posts.text |safe}}
+                                        <p class="blog-text">{{posts.text |truncatewords:20|safe}}
                                             </p>
-                                            <a href="blog-details.html" class="th-btn">READ MORE<i
+                                            <a href="{{posts.get_absolute_url}}" class="th-btn">READ MORE<i
                                                 class="fa-solid fa-right-long ms-2"></i></a> </div></div>
-                               
-                            
+
+
                 </div>
                     {%endif%}
                 {%endfor%}
+
+<!-- Display posts associated with tags -->
+{% if posts %}
+    <div class="tagged-posts">
+        <h3 style="color: green;">Posts tagged with: ({{ tag.name }})</h3>
+        <div class="container th-container">
+            <div class="row">
+                {% for post in posts %}
+                    <div class="col-lg-6 col-xl-4">
+                        <div class="th-blog blog-single has-post-thumbnail">
+                            <div class="blog-img">
+                                <a href="{% url 'blog:post_detail' slug=post.slug %}">
+                                    <img src="{{ post.cover.url }}" alt="Blog Image">
+                                </a>
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <a href="blog.html"><i class="fas fa-user"></i> {{ post.author.first_name }} {{ post.author.last_name }}</a>
+                                    <a href="blog.html"><i class="fa-solid fa-calendar-days"></i> {{ post.datetime_created }}</a>
+                                    <a href="{{ post.get_absolute_url }}"><i class="fa-solid fa-tags"></i> {{ post.tags.all|join:"," }}</a>
+                                </div>
+                                <h2 class="blog-title">
+                                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                                </h2>
+                                <p class="blog-text">{{ post.text |truncatewords:20|safe }}</p>
+                                <a href="{{ post.get_absolute_url }}" class="th-btn">READ MORE<i class="fa-solid fa-right-long ms-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endif %}
                 <div class="th-pagination text-center">
                     <ul>
                         {% if post.has_previous %}
@@ -55,8 +90,10 @@
                         {%endif%}
                     </ul>
                 </div>
-            </div>
-        </div>
+
+
+                           
+ 
     </section>
 
 {%endblock content%}

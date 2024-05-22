@@ -106,13 +106,17 @@
                             </form>
                                 </div>
                             </div>
-                        </div>
+                        
                         <div class="widget widget_tag_cloud">
-                            <h3 class="widget_title">Tags</h3>
-                            <div class="tagcloud"><a href="blog.html">{{ typeservice.tags.all|join:"  | " }}</a> 
-                               
-                                
-                                </div>
+                            <!-- <h3 class="widget_title">Tags</h3> {% for tag in typeservice.tags.all %} -->
+                            <div class="tagcloud">
+                                <a href="">
+                                    {{ typeservice.tags.all|join:"  | " }}
+                               </a> 
+ 
+                                 <!---------{% url 'service:service_tag'  tag_id=tag.id slug=tag.slug %}!---->
+                               {%endfor%}
+                            </div>
                         </div>
                     </aside>
                 </div>
@@ -121,12 +125,11 @@
     </section>
 
         </div>
-        <div class="shape-mockup" data-top="0%" data-left="0%"><img src="assets/img/shape/footer_shape_1.png"
+        <div class="shape-mockup" data-top="0%" data-left="0%"><img src="{%static 'assets/img/shape/footer_shape_1.png'%}"
                 alt="shape"></div>
         <div class="shape-mockup d-none d-xl-block" data-bottom="12%" data-right="0%"><img
-                src="assets/img/shape/footer_shape_2.png" alt="shape"></div>
+                src="{%static 'assets/img/shape/footer_shape_2.png'%}" alt="shape"></div>
  
  
 
 {% endblock content %}
-</html>

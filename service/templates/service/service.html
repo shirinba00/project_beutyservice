@@ -29,7 +29,9 @@
                         <div>
                                 <div class="service-box">
                                     <div class="service-box_icon">
-                                        <div class="global-icon"><img src="{% static 'assets/img/icon/service_1_1.svg' %}" alt="Icon"></div>
+                                        {%if service.icon %}
+                                        <div class="global-icon"><img src="{{service.icon.url}}" alt="Icon"></div>
+                                        {%endif%}
                                     </div>
                                     <h3 class="box-title"><a href="{{ service.get_absolute_url }}">{{service.name}}
 
@@ -37,9 +39,9 @@
                                     <p class="service-box_text">{{service.info}}
                                         </p>
                                 </div>
-                                {% if service.picture.url %}
+                                
                                 <div class="service-img"><img src="{{service.picture.url }}" alt="{{service.name}}"></div>
-                                {%endif%}
+                                
                         </div>
                        
                     </div>

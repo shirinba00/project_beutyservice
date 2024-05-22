@@ -109,6 +109,7 @@ class PersonService(models.Model):
     image = models.ImageField(upload_to='personservice_picture/',)
     phone= models.CharField(max_length=25, blank=True ,null=True,)
     information_short = models.TextField(blank=True ,null=True,)
+    experience = models.CharField(max_length=20,blank=True ,null=True,)
     description = RichTextUploadingField(blank=True, null=True)
     instagram = models.CharField(max_length=50,blank=True ,null=True,)
     linkedin = models.CharField(max_length=50,blank=True ,null=True,)

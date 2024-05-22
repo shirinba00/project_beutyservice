@@ -1,9 +1,12 @@
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.contrib import messages
 from .models import Category, ReserveService, Skill, TypeService,PersonService
 from .forms import *
 from django.db.models import Q
+from taggit.models import Tag
+from django.core.paginator import Paginator
 
 
 class PersonServiceView(View):
@@ -98,3 +101,52 @@ class CategoryAndSubView(View):
         return render(request, 'service/service.html', context)
     
 
+
+
+
+# display products by tag
+
+from django.core.exceptions import ObjectDoesNotExist
+
+def typeservice_list_by_tag(request, tag_id, slug):
+    categories = Category.objects.filter(sub_cat=False)
+    try:
+        clicked_tag = get_object_or_404(Tag, id=tag_id)
+    except ObjectDoesNotExist:
+        raise Http404("Tag does not exist")
+    
+    try:
+        data = get_object_or_404(Category, slug=slug)
+    except ObjectDoesNotExist:
+        raise Http404("Category does not exist")
+    
+    service = TypeService.objects.filter(tags=clicked_tag)
+    
+    s_form = SearchTypeService()
+    
+    paginator = Paginator(service, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    if 'search' in request.GET:
+        s_form = SearchTypeService(request.GET)
+        if s_form.is_valid():
+            data = s_form.cleaned_data['search']
+            if data.isdigit():
+                page_obj = service.filter(Q(name__icontains=data))
+            paginator = Paginator(page_obj, 8)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+    
+    if slug:
+        data = get_object_or_404(Category, slug=slug)
+        page_obj = service.filter(category=data)
+        paginator = Paginator(page_obj, 8)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+    
+    return render(request, "service/service.html", {
+        'service': page_obj,
+        'categories': categories,
+        's_form': s_form,
+    })

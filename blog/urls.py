@@ -14,7 +14,10 @@ urlpatterns = [
     path('<slug:slug>/', views.post_detail, name='post_detail'),
     path('comments/<int:id>/', views.comment_post, name='comment_post'),
     path('reply/<int:id>/<int:comment_id>/', views.comment_replay, name='comment_replay'),
-    # path('by_category/,<int:category_id>/', post_list_by_category, name='post_cat'),
+    path('by_category/,<int:category_id>/', views.post_list_by_category, name='post_cat'),
+    path('tagged/<slug:tag_slug>/', views.tagged_posts, name='tagged_posts'),
+   
+
     
      
 ]
